@@ -1,0 +1,88 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Avenir', Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    color: #505050;
+    letter-spacing: 2px;
+    height: 100%;
+    text-align: center;
+}
+
+a {
+    text-decoration: none;
+    color: #505050;
+    cursor: pointer;
+}
+
+select {
+    width: 175px;
+    text-align-last:center;
+    margin-bottom: 20px;
+}
+
+.cartLink {
+    text-align: right;
+    margin: 15px;
+    font-size: 18px;
+}
+
+.loading {
+    margin-top: 200px;
+}
+
+h1 {
+    margin-bottom: 50px;
+}
+
+h2 {
+    margin-bottom: 20px;
+}
+
+.row {
+    margin-bottom: 25px;
+}
+
+.toppings {
+    text-align: left;
+}
+
+input[type=checkbox] {
+    margin-right: 10px;
+}
+
+form {
+    margin-bottom: 50px;
+}
+
+.button {
+    border: 1px solid slategrey;
+    cursor: pointer;
+    padding: 2px 50px 2px 50px;
+}
+
+.button:hover {
+    background-color: slategrey;
+    color: white;
+}
+
+a.cart:hover {
+    text-decoration: none;
+}
+
+.title {
+    border-bottom: 1px solid slategrey;
+}
+
+.cartItem {
+    text-align: left;
+}
+
+.delete {
+    cursor: pointer;
+}
+
+.delete:hover{
+    color: red;
+}

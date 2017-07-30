@@ -1,0 +1,103 @@
+import React from 'react'
+import { gql, graphql } from 'react-apollo'
+import Form from './Form.js'
+import CartLink from './CartLink.js'
+import SizeMenu from './SizeMenu.js'
+import { Col, Row } from 'react-bootstrap'
+
+class Home extends React.Component {
+
+    constructor(props) {
+        super(props)
+        this.state = {
+            sizeChosen : false,
+            selectedSize: 'small',
+            pizza: {}
+        }
+
+        this.handleSelectSize = this.handleSelectSize.bind(this)
+        this.handleSubmitSize = this.handleSubmitSize.bind(this)
+        this.resetForm = this.resetForm.bind(this)
+        this.initialSize = this.initialSize.bind(this)
+    }
+
+    handleSelectSize(event) {
+        this.setState({
+            selectedSize: event.target.value
+        })
+        let selectedPizza = this.props.data.pizzaSizes.find(pizza => {
+            return pizza.name === event.target.value 
+        })
+        this.setState({pizza: selectedPizza})
+    }
+
+    handleSubmitSize() {
+        this.setState({sizeChosen: true})
+    }
+
+    initialSize(size) {
+        this.setState({pizza: size})
+    }
+
+    resetForm() {
+        this.setState({
+            sizeChosen: false,
+        })
+    }
+
+    render() {
+        if (this.props.data.loading) {
+            return (
+                <Row className='loading'>
+                    <Col xs={4} xsOffset={4}>
+                        Loading...
+                    </Col>
+                </Row>
+            )
+        }
+
+        if (this.state.sizeChosen) {
+            return (
+                <div>
+                    <CartLink quantity={this.props.store.pizzas.length} />
+                    <Form 
+                        resetForm={this.resetForm} 
+                        handleAddPizza={this.props.handleAddPizza} 
+                        pizza={this.state.pizza} />
+                </div>
+            )
+        }
+
+        return (
+            <div>
+                <CartLink 
+                    quantity={this.props.store.pizzas.length} />
+                <SizeMenu 
+                    handleSelectSize={this.handleSelectSize} 
+                    handleSubmitSize={this.handleSubmitSize}
+                    initialSize={this.initialSize}
+                    pizzaSizes={this.props.data.pizzaSizes} 
+                    selectedSize={this.state.selectedSize} />
+            </div>
+        )
+    }
+}
+
+const FeedQuery = gql`query pizzaSizes {
+    pizzaSizes {
+        name
+        basePrice
+        maxToppings
+        toppings {
+        defaultSelected
+            topping {
+                name
+                price
+            }
+        }
+    }
+}`
+
+const HomeWithData = graphql(FeedQuery)(Home)
+
+export default HomeWithData
