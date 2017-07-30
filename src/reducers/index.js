@@ -10,7 +10,7 @@ function pizzas(state = [], action) {
                 }
             ]
         case REMOVE_PIZZA:
-            return state.filter(pizza => pizza !== action.pizza);
+            return state.filter(pizza => pizza !== action.pizza)
         default:
             return state
     }

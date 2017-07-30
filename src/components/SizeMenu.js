@@ -4,7 +4,10 @@ import { Col, Row } from 'react-bootstrap'
 class SizeMenu extends React.Component {
 
     componentDidMount() {
-        this.props.initialSize(this.props.pizzaSizes[0])
+        let pizza = this.props.pizzaSizes.find(pizza => {
+            return pizza.name === this.props.selectedSize
+        })
+        this.props.initialSize(pizza)
     }
 
     render() {
