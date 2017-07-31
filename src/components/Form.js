@@ -19,6 +19,8 @@ class Form extends React.Component {
         this.handleToppingChange = this.handleToppingChange.bind(this)
         this.updateTotal = this.updateTotal.bind(this)
         this.handleAddToCart = this.handleAddToCart.bind(this)
+        this.checkMaxToppings = this.checkMaxToppings.bind(this)
+        this.initializeForm = this.initializeForm.bind(this)
     }
 
     handleAddToCart() {
@@ -50,17 +52,20 @@ class Form extends React.Component {
         }
     }
 
-    addTopping(topping) {
-        if (!this.state.toppingsMax) {
-            let newPickedToppings = this.state.pickedToppings.concat(topping)
-            this.setState({pickedToppings: newPickedToppings})
-            this.updateTotal('add', topping.price)
-            if (newPickedToppings.length === this.props.pizza.maxToppings) {
-                this.setState({toppingsMax: true})
-            }
-        } else {
-            return
+    checkMaxToppings(toppings, max) {
+        if (toppings.length === max) {
+            this.setState({toppingsMax: true})
         }
+        if (toppings.length < max) {
+            this.setState({toppingsMax: false})
+        }
+    }
+
+    addTopping(topping) {
+            let newToppings = this.state.pickedToppings.concat(topping)
+            this.setState({pickedToppings: newToppings})
+            this.updateTotal('add', topping.price)
+            this.checkMaxToppings(newToppings, this.props.pizza.maxToppings)
     }
 
     removeTopping(topping) {
@@ -69,12 +74,10 @@ class Form extends React.Component {
         })
         this.setState({pickedToppings: newToppings})
         this.updateTotal('subtract', topping.price)
-        if (newToppings.length < this.props.pizza.maxToppings) {
-            this.setState({toppingsMax: false})
-        }
+        this.checkMaxToppings(newToppings, this.props.pizza.maxToppings)
     }
 
-    componentDidMount() {
+    initializeForm() {
         let defaultToppings = []
         let sum = this.props.pizza.basePrice
         this.props.pizza.toppings.forEach(topping => {
@@ -90,6 +93,10 @@ class Form extends React.Component {
         } else {
             this.setState({maxNumberOfToppings: 'Unlimited!'})
         }
+    }
+
+    componentDidMount() {
+        this.initializeForm()
     }
 
     render() {

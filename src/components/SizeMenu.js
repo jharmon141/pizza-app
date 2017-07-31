@@ -3,11 +3,21 @@ import { Col, Row } from 'react-bootstrap'
 
 class SizeMenu extends React.Component {
 
-    componentDidMount() {
+    constructor(props) {
+        super(props)
+
+        this.initializeMenu = this.initializeMenu.bind(this)
+    }
+
+    initializeMenu(){
         let pizza = this.props.pizzaSizes.find(pizza => {
             return pizza.name === this.props.selectedSize
         })
         this.props.initialSize(pizza)
+    }
+
+    componentDidMount() {
+        this.initializeMenu()
     }
 
     render() {
