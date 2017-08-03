@@ -4,6 +4,7 @@ import Form from './Form.js'
 import CartLink from './CartLink.js'
 import SizeMenu from './SizeMenu.js'
 import { Col, Row } from 'react-bootstrap'
+import PropTypes from 'prop-types'
 
 class Home extends React.Component {
 
@@ -19,6 +20,41 @@ class Home extends React.Component {
         this.handleSubmitSize = this.handleSubmitSize.bind(this)
         this.resetForm = this.resetForm.bind(this)
         this.initialSize = this.initialSize.bind(this)
+    }
+
+    static propTypes = {
+        handleAddPizza: PropTypes.func.isRequired,
+        store: PropTypes.shape({
+            pizzas: PropTypes.arrayOf(PropTypes.shape({
+                pizzas: PropTypes.shape({
+                    size: PropTypes.string.isRequired,
+                    total: PropTypes.number.isRequired,
+                    toppings: PropTypes.arrayOf(PropTypes.shape({
+                        __typename: PropTypes.string.isRequired,
+                        name: PropTypes.string.isRequired,
+                        price: PropTypes.number.isRequired
+                    }).isRequired).isRequired
+                }).isRequired
+            }).isRequired).isRequired
+        }).isRequired,
+        data: PropTypes.shape({
+            loading: PropTypes.bool.isRequired,
+            pizzaSizes: PropTypes.arrayOf(PropTypes.shape({
+                __typename: PropTypes.string.isRequired,
+                basePrice: PropTypes.number.isRequired,
+                maxToppings: PropTypes.number,
+                name: PropTypes.string.isRequired,
+                toppings: PropTypes.arrayOf(PropTypes.shape({
+                    __typename: PropTypes.string.isRequired,
+                    defaultSelected: PropTypes.bool.isRequired,
+                    toppings: PropTypes.shape({
+                        __typename: PropTypes.string.isRequired,
+                        name: PropTypes.string.isRequired,
+                        price: PropTypes.number.isRequired
+                    })
+                }).isRequired).isRequired
+            }).isRequired)
+        })
     }
 
     handleSelectSize(event) {

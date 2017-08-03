@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { Col, Row } from 'react-bootstrap'
+import PropTypes from 'prop-types'
 
 class Form extends React.Component {
 
@@ -21,6 +22,25 @@ class Form extends React.Component {
         this.handleAddToCart = this.handleAddToCart.bind(this)
         this.checkMaxToppings = this.checkMaxToppings.bind(this)
         this.initializeForm = this.initializeForm.bind(this)
+    }
+
+    static proptypes = {
+        handleAddPizza: PropTypes.func.isRequired,
+        pizza: PropTypes.shape({
+            __typename: PropTypes.string.isRequired,
+            basePrice: PropTypes.number.isRequired,
+            maxToppings: PropTypes.number,
+            name: PropTypes.string.isRequired,
+            toppings: PropTypes.arrayOf(PropTypes.shape({
+                __typename: PropTypes.string.isRequired,
+                defaultSelected: PropTypes.bool.isRequired,
+                topping: PropTypes.shape({
+                    __typename: PropTypes.string.isRequired,
+                    name: PropTypes.string.isRequired,
+                    price: PropTypes.number.isRequired
+                }).isRequired
+            }).isRequired).isRequired
+        }).isRequired
     }
 
     handleAddToCart() {
@@ -62,10 +82,10 @@ class Form extends React.Component {
     }
 
     addTopping(topping) {
-            let newToppings = this.state.pickedToppings.concat(topping)
-            this.setState({pickedToppings: newToppings})
-            this.updateTotal('add', topping.price)
-            this.checkMaxToppings(newToppings, this.props.pizza.maxToppings)
+        let newToppings = this.state.pickedToppings.concat(topping)
+        this.setState({pickedToppings: newToppings})
+        this.updateTotal('add', topping.price)
+        this.checkMaxToppings(newToppings, this.props.pizza.maxToppings)
     }
 
     removeTopping(topping) {

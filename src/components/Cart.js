@@ -1,8 +1,9 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { Col, Row } from 'react-bootstrap'
+import PropTypes from 'prop-types'
 
-class Cart extends React.Component {
+export default class Cart extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -11,6 +12,22 @@ class Cart extends React.Component {
 
         this.calculateTotal = this.calculateTotal.bind(this)
         this.removePizza = this.removePizza.bind(this)
+    }
+
+    static propTypes = {
+        handleRemovePizza: PropTypes.func.isRequired,
+        store: PropTypes.shape({
+            pizzas: PropTypes.arrayOf(PropTypes.shape({
+                pizzas: PropTypes.shape({
+                    size: PropTypes.string.isRequired,
+                    toppings: PropTypes.arrayOf(PropTypes.shape({
+                        __typename: PropTypes.string.isRequired,
+                        name: PropTypes.string.isRequired,
+                        price: PropTypes.number.isRequired
+                    }).isRequired).isRequired
+                }).isRequired
+            }).isRequired).isRequired
+        }).isRequired
     }
 
     removePizza(pizza) {
@@ -117,4 +134,3 @@ class Cart extends React.Component {
     }
 }
 
-export default Cart

@@ -1,8 +1,13 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { Col, Row } from 'react-bootstrap'
+import PropTypes from 'prop-types'
 
 class CartLink extends React.Component {
+
+    static propTypes = {
+        quantity: PropTypes.number.isRequired
+    }
 
     render() {
         return (
@@ -15,7 +20,6 @@ class CartLink extends React.Component {
             </Row>
         )
     }
-
 }
 
 export default CartLink
