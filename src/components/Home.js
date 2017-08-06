@@ -8,115 +8,115 @@ import PropTypes from 'prop-types'
 
 class Home extends React.Component {
 
-    constructor(props) {
-        super(props)
-        this.state = {
-            sizeChosen : false,
-            selectedSize: 'small',
-            pizza: {}
-        }
+   constructor(props) {
+      super(props)
 
-        this.handleSelectSize = this.handleSelectSize.bind(this)
-        this.handleSubmitSize = this.handleSubmitSize.bind(this)
-        this.resetForm = this.resetForm.bind(this)
-        this.initialSize = this.initialSize.bind(this)
-    }
+      this.state = {
+         sizeChosen : false,
+         selectedSize: 'small',
+         pizza: {}
+      }
 
-    static propTypes = {
-        handleAddPizza: PropTypes.func.isRequired,
-        store: PropTypes.shape({
-            pizzas: PropTypes.arrayOf(PropTypes.shape({
-                pizzas: PropTypes.shape({
-                    size: PropTypes.string.isRequired,
-                    total: PropTypes.number.isRequired,
-                    toppings: PropTypes.arrayOf(PropTypes.shape({
-                        __typename: PropTypes.string.isRequired,
-                        name: PropTypes.string.isRequired,
-                        price: PropTypes.number.isRequired
-                    }).isRequired).isRequired
-                }).isRequired
+      this.handleSelectSize = this.handleSelectSize.bind(this)
+      this.handleSubmitSize = this.handleSubmitSize.bind(this)
+      this.resetForm = this.resetForm.bind(this)
+      this.initialSize = this.initialSize.bind(this)
+   }
+
+   static propTypes = {
+      handleAddPizza: PropTypes.func.isRequired,
+      store: PropTypes.shape({
+         pizzas: PropTypes.arrayOf(PropTypes.shape({
+            id: PropTypes.number.isRequired,
+            size: PropTypes.string.isRequired,
+            total: PropTypes.number.isRequired,
+            toppings: PropTypes.arrayOf(PropTypes.shape({
+               __typename: PropTypes.string.isRequired,
+               name: PropTypes.string.isRequired,
+               price: PropTypes.number.isRequired
             }).isRequired).isRequired
-        }).isRequired,
-        data: PropTypes.shape({
-            loading: PropTypes.bool.isRequired,
-            pizzaSizes: PropTypes.arrayOf(PropTypes.shape({
-                __typename: PropTypes.string.isRequired,
-                basePrice: PropTypes.number.isRequired,
-                maxToppings: PropTypes.number,
-                name: PropTypes.string.isRequired,
-                toppings: PropTypes.arrayOf(PropTypes.shape({
-                    __typename: PropTypes.string.isRequired,
-                    defaultSelected: PropTypes.bool.isRequired,
-                    toppings: PropTypes.shape({
-                        __typename: PropTypes.string.isRequired,
-                        name: PropTypes.string.isRequired,
-                        price: PropTypes.number.isRequired
-                    })
-                }).isRequired).isRequired
-            }).isRequired)
-        })
-    }
+         }).isRequired).isRequired
+      }).isRequired,
+      data: PropTypes.shape({
+         loading: PropTypes.bool.isRequired,
+         pizzaSizes: PropTypes.arrayOf(PropTypes.shape({
+            __typename: PropTypes.string.isRequired,
+            basePrice: PropTypes.number.isRequired,
+            maxToppings: PropTypes.number,
+            name: PropTypes.string.isRequired,
+            toppings: PropTypes.arrayOf(PropTypes.shape({
+               __typename: PropTypes.string.isRequired,
+               defaultSelected: PropTypes.bool.isRequired,
+               toppings: PropTypes.shape({
+                  __typename: PropTypes.string.isRequired,
+                  name: PropTypes.string.isRequired,
+                  price: PropTypes.number.isRequired
+               })
+            }).isRequired).isRequired
+         }).isRequired)
+      })
+   }
 
-    handleSelectSize(event) {
-        this.setState({
-            selectedSize: event.target.value
-        })
-        let selectedPizza = this.props.data.pizzaSizes.find(pizza => {
-            return pizza.name === event.target.value 
-        })
-        this.setState({pizza: selectedPizza})
-    }
+   handleSelectSize(event) {
+      this.setState({
+         selectedSize: event.target.value
+      })
+      let selectedPizza = this.props.data.pizzaSizes.find(pizza => {
+         return pizza.name === event.target.value 
+      })
+      this.setState({pizza: selectedPizza})
+   }
 
-    handleSubmitSize() {
-        this.setState({sizeChosen: true})
-    }
+   handleSubmitSize() {
+      this.setState({sizeChosen: true})
+   }
 
-    initialSize(size) {
-        this.setState({pizza: size})
-    }
+   initialSize(size) {
+      this.setState({pizza: size})
+   }
 
-    resetForm() {
-        this.setState({
-            sizeChosen: false,
-        })
-    }
+   resetForm() {
+      this.setState({
+         sizeChosen: false,
+      })
+   }
 
-    render() {
-        if (this.props.data.loading) {
-            return (
-                <Row className='loading'>
-                    <Col xs={4} xsOffset={4}>
-                        Loading...
-                    </Col>
-                </Row>
-            )
-        }
+   render() {
+      if (this.props.data.loading) {
+         return (
+            <Row className='loading'>
+               <Col xs={4} xsOffset={4}>
+                  Loading...
+               </Col>
+            </Row>
+         )
+      }
 
-        if (this.state.sizeChosen) {
-            return (
-                <div>
-                    <CartLink quantity={this.props.store.pizzas.length} />
-                    <Form 
-                        resetForm={this.resetForm} 
-                        handleAddPizza={this.props.handleAddPizza} 
-                        pizza={this.state.pizza} />
-                </div>
-            )
-        }
-
-        return (
+      if (this.state.sizeChosen) {
+         return (
             <div>
-                <CartLink 
-                    quantity={this.props.store.pizzas.length} />
-                <SizeMenu 
-                    handleSelectSize={this.handleSelectSize} 
-                    handleSubmitSize={this.handleSubmitSize}
-                    initialSize={this.initialSize}
-                    pizzaSizes={this.props.data.pizzaSizes} 
-                    selectedSize={this.state.selectedSize} />
+               <CartLink quantity={this.props.store.pizzas.length} />
+               <Form 
+                  resetForm={this.resetForm} 
+                  handleAddPizza={this.props.handleAddPizza} 
+                  pizza={this.state.pizza} />
             </div>
-        )
-    }
+         )
+      }
+
+      return (
+         <div>
+            <CartLink 
+               quantity={this.props.store.pizzas.length} />
+            <SizeMenu 
+               handleSelectSize={this.handleSelectSize} 
+               handleSubmitSize={this.handleSubmitSize}
+               initialSize={this.initialSize}
+               pizzaSizes={this.props.data.pizzaSizes} 
+               selectedSize={this.state.selectedSize} />
+         </div>
+      )
+   }
 }
 
 const FeedQuery = gql`query pizzaSizes {
@@ -134,6 +134,7 @@ const FeedQuery = gql`query pizzaSizes {
     }
 }`
 
+//allows Home component to access graphQL query results as props
 const HomeWithData = graphql(FeedQuery)(Home)
 
 export default HomeWithData

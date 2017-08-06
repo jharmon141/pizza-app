@@ -11,6 +11,11 @@ Run
 npm start (yarn start) 
 ```
 
+Test
+```sh
+npm test (yarn test) 
+```
+
 Build
 ```sh
 npm build (yarn build) 

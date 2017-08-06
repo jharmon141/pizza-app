@@ -3,20 +3,20 @@ import { removePizza } from '../actions'
 import Cart from '../components/Cart'
 
 const getPizzas = pizza => {
-    return pizza
+   return pizza
 }
 
 const mapStateToProps = (state) => ({
-  store: getPizzas(state.pizzas)
+   store: getPizzas(state.pizzas)
 })
 
 const mapDispatchToProps = {
-  handleRemovePizza: removePizza
+   handleRemovePizza: removePizza
 }
 
 const CartContainer = connect(
-  mapStateToProps,
-  mapDispatchToProps
+   mapStateToProps,
+   mapDispatchToProps
 )(Cart)
 
 export default CartContainer

@@ -5,21 +5,21 @@ import PropTypes from 'prop-types'
 
 class CartLink extends React.Component {
 
-    static propTypes = {
-        quantity: PropTypes.number.isRequired
-    }
+   static propTypes = {
+      quantity: PropTypes.number.isRequired
+   }
 
-    render() {
-        return (
-            <Row>
-                <Col xs={2} xsOffset={10}>
-                    <div className="cartLink">
-                        <Link to='/cart'>({this.props.quantity})Cart</Link>
-                    </div>
-                </Col>
-            </Row>
-        )
-    }
+   render() {
+      return (
+         <Row>
+            <Col xs={2} xsOffset={10}>
+               <div className="cartLink">
+                  <Link to='/cart'>({this.props.quantity})Cart</Link>
+               </div>
+            </Col>
+         </Row>
+      )
+   }
 }
 
 export default CartLink
