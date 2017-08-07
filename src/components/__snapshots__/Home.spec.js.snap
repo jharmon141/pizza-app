@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Home Component renders without crashing 1`] = `
+<div
+  className="loading row"
+>
+  <div
+    className="col-xs-4 col-xs-offset-4"
+  >
+    Loading...
+  </div>
+</div>
+`;

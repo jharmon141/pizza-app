@@ -13,6 +13,7 @@
     "react-router": "^4.1.2",
     "react-router-dom": "^4.1.2",
     "react-scripts": "1.0.10",
+    "react-test-renderer": "^15.6.1",
     "redux": "^3.7.2"
   },
   "scripts": {
@@ -21,5 +22,8 @@
     "deploy": "git subtree push --prefix build heroku master",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
+  },
+  "devDependencies": {
+    "jest-enzyme": "^3.6.1"
   }
 }

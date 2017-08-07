@@ -6,7 +6,7 @@ import PropTypes from 'prop-types'
 class CartLink extends React.Component {
 
    static propTypes = {
-      quantity: PropTypes.number.isRequired
+      quantity: PropTypes.number
    }
 
    render() {

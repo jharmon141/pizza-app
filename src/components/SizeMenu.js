@@ -11,24 +11,24 @@ export default class SizeMenu extends React.Component {
    }
 
    static propTypes = {
-      handleSelectSize: PropTypes.func.isRequired,
-      handleSubmitSize: PropTypes.func.isRequired,
-      initialSize: PropTypes.func.isRequired,
+      handleSelectSize: PropTypes.func,
+      handleSubmitSize: PropTypes.func,
+      initialSize: PropTypes.func,
       pizzaSizes: PropTypes.arrayOf(PropTypes.shape({
-         __typename: PropTypes.string.isRequired,
-         basePrice: PropTypes.number.isRequired,
+         __typename: PropTypes.string,
+         basePrice: PropTypes.number,
          maxToppings: PropTypes.number,
-         name: PropTypes.string.isRequired,
+         name: PropTypes.string,
          toppings: PropTypes.arrayOf(PropTypes.shape({
-            __typename: PropTypes.string.isRequired,
-            defaultSelected: PropTypes.bool.isRequired,
+            __typename: PropTypes.string,
+            defaultSelected: PropTypes.bool,
             topping: PropTypes.shape({
-               __typename: PropTypes.string.isRequired,
-               name: PropTypes.string.isRequired,
-               price: PropTypes.number.isRequired
-            }).isRequired
-         }).isRequired).isRequired
-      }).isRequired).isRequired
+               __typename: PropTypes.string,
+               name: PropTypes.string,
+               price: PropTypes.number
+            })
+         }))
+      }))
    }
 
    initializeMenu(){
