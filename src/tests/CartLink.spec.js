@@ -1,5 +1,5 @@
 import React from 'react'
-import CartLink from './CartLink'
+import CartLink from '../components/CartLink'
 import { MemoryRouter } from 'react-router-dom'
 import renderer from 'react-test-renderer'
 

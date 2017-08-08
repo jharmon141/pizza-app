@@ -1,5 +1,5 @@
 import React from 'react'
-import Form from './Form'
+import Form from '../components/Form'
 import { MemoryRouter } from 'react-router-dom'
 import renderer from 'react-test-renderer'
 

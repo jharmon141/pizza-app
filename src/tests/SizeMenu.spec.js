@@ -1,5 +1,5 @@
 import React from 'react'
-import SizeMenu from './SizeMenu'
+import SizeMenu from '../components/SizeMenu'
 import renderer from 'react-test-renderer'
 
 describe('SizeMenu Component', () => {

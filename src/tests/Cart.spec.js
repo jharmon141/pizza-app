@@ -1,5 +1,5 @@
 import React from 'react'
-import Cart from './Cart'
+import Cart from '../components/Cart'
 import { MemoryRouter } from 'react-router-dom'
 import renderer from 'react-test-renderer'
 
