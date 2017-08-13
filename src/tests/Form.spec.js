@@ -1,7 +1,7 @@
-import React from 'react'
-import Form from '../components/Form'
-import { MemoryRouter } from 'react-router-dom'
-import renderer from 'react-test-renderer'
+import React from 'react';
+import Form from '../components/Form';
+import { MemoryRouter } from 'react-router-dom';
+import renderer from 'react-test-renderer';
 
 describe('Form Component', () => {
    it('renders without crashing', () => {
@@ -21,7 +21,7 @@ describe('Form Component', () => {
                }
             }
          ]
-      }
+      };
 
       const tree = renderer.create(
          <MemoryRouter> 
@@ -31,8 +31,8 @@ describe('Form Component', () => {
                handleAddPizza={() => {}}
             />
          </MemoryRouter>
-      ).toJSON()
-      expect(tree).toMatchSnapshot()
-      setTimeout(() => done())
+      ).toJSON();
+      expect(tree).toMatchSnapshot();
+      setTimeout(() => done());
    })
 })

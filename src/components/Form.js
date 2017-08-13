@@ -1,18 +1,18 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import { Col, Row } from 'react-bootstrap'
-import PropTypes from 'prop-types'
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { Col, Row } from 'react-bootstrap';
+import PropTypes from 'prop-types';
 
-let quantityNums = []
+let quantityNums = [];
 
 for (let i = 1; i < 11; i++) {
-   quantityNums.push(i)
+   quantityNums.push(i);
 }
 
-class Form extends React.Component {
+export default class Form extends React.Component {
 
    constructor(props) {
-      super(props)
+      super(props);
 
       this.state = {
          submitted: false,
@@ -22,17 +22,17 @@ class Form extends React.Component {
          maxNumberOfToppings: 0,
          total: 0,
          grandTotal: 0
-      }
+      };
 
-      this.addTopping = this.addTopping.bind(this)
-      this.removeTopping = this.removeTopping.bind(this)
-      this.handleToppingChange = this.handleToppingChange.bind(this)
-      this.updateTotal = this.updateTotal.bind(this)
-      this.handleAddToCart = this.handleAddToCart.bind(this)
-      this.selectQuantity = this.selectQuantity.bind(this)
-      this.checkMaxToppings = this.checkMaxToppings.bind(this)
-      this.initializeForm = this.initializeForm.bind(this)
-   }
+      this.addTopping = this.addTopping.bind(this);
+      this.removeTopping = this.removeTopping.bind(this);
+      this.handleToppingChange = this.handleToppingChange.bind(this);
+      this.updateTotal = this.updateTotal.bind(this);
+      this.handleAddToCart = this.handleAddToCart.bind(this);
+      this.selectQuantity = this.selectQuantity.bind(this);
+      this.checkMaxToppings = this.checkMaxToppings.bind(this);
+      this.initializeForm = this.initializeForm.bind(this);
+   };
 
    static proptypes = {
       handleAddPizza: PropTypes.func.isRequired,
@@ -51,100 +51,100 @@ class Form extends React.Component {
             }).isRequired
          }).isRequired).isRequired
       }).isRequired
-   }
+   };
 
    handleAddToCart() {
-      let pizza = {}
-      pizza.size = this.props.pizza.name
-      pizza.toppings = this.state.pickedToppings
-      pizza.basePrice = this.state.total
-      pizza.quantity = this.state.quantity
+      let pizza = {};
+      pizza.size = this.props.pizza.name;
+      pizza.toppings = this.state.pickedToppings;
+      pizza.basePrice = this.state.total;
+      pizza.quantity = this.state.quantity;
 
-      this.props.handleAddPizza(pizza)
-      this.setState({submitted: true})
-   }
+      this.props.handleAddPizza(pizza);
+      this.setState({submitted: true});
+   };
 
    handleToppingChange(topping) {
-      this.state.pickedToppings.includes(topping) ? this.removeTopping(topping) : this.addTopping(topping)
-   }
+      this.state.pickedToppings.includes(topping) ? this.removeTopping(topping) : this.addTopping(topping);
+   };
 
    updateTotal(change, amount) {
       if (change === 'add') {
-         let toppingPrice = Number(amount)
-         let beginTotal = Number(this.state.total)
-         let newTotal = (beginTotal + toppingPrice) 
+         let toppingPrice = Number(amount);
+         let beginTotal = Number(this.state.total);
+         let newTotal = (beginTotal + toppingPrice); 
          this.setState({
             total: newTotal,
             grandTotal: newTotal * this.state.quantity
-         })
+         });
       }
       else if (change === 'subtract') {
-         let toppingPrice = Number(amount)
-         let beginTotal = Number(this.state.total)
-         let newTotal = (beginTotal - toppingPrice) 
+         let toppingPrice = Number(amount);
+         let beginTotal = Number(this.state.total);
+         let newTotal = (beginTotal - toppingPrice); 
          this.setState({
             total: newTotal,
             grandTotal: newTotal * this.state.quantity
-         })
-      }
-   }
+         });
+      };
+   };
 
    selectQuantity(event) {
       this.setState({
          quantity: Number(event.target.value),
          grandTotal: this.state.total * event.target.value
-      })
-   }
+      });
+   };
 
    checkMaxToppings(toppings, max) {
       if (toppings.length === max) {
-         this.setState({toppingsMax: true})
-      }
+         this.setState({toppingsMax: true});
+      };
       if (toppings.length < max) {
-         this.setState({toppingsMax: false})
-      }
-   }
+         this.setState({toppingsMax: false});
+      };
+   };
 
    addTopping(topping) {
-      let newToppings = this.state.pickedToppings.concat(topping)
-      this.setState({pickedToppings: newToppings})
-      this.updateTotal('add', topping.price)
-      this.checkMaxToppings(newToppings, this.props.pizza.maxToppings)
-   }
+      let newToppings = this.state.pickedToppings.concat(topping);
+      this.setState({pickedToppings: newToppings});
+      this.updateTotal('add', topping.price);
+      this.checkMaxToppings(newToppings, this.props.pizza.maxToppings);
+   };
 
    removeTopping(topping) {
       let newToppings = this.state.pickedToppings.filter(each => {
-         return each !== topping
-      })
-      this.setState({pickedToppings: newToppings})
-      this.updateTotal('subtract', topping.price)
-      this.checkMaxToppings(newToppings, this.props.pizza.maxToppings)
-   }
+         return each !== topping;
+      });
+      this.setState({pickedToppings: newToppings});
+      this.updateTotal('subtract', topping.price);
+      this.checkMaxToppings(newToppings, this.props.pizza.maxToppings);
+   };
 
    initializeForm() {
-      let defaultToppings = []
-      let sum = this.props.pizza.basePrice
+      let defaultToppings = [];
+      let sum = this.props.pizza.basePrice;
       this.props.pizza.toppings.forEach(topping => {
          if (topping.defaultSelected) {
-            defaultToppings.push(topping.topping)
-            sum += topping.topping.price
-         }
-         this.addTopping(defaultToppings)
-      })
+            defaultToppings.push(topping.topping);
+            sum += topping.topping.price;
+         };
+         this.addTopping(defaultToppings);
+      });
       this.setState({
          total: sum,
          grandTotal: sum
-      })
+      });
       if (this.props.pizza.maxToppings !== null) {
-         this.setState({maxNumberOfToppings: this.props.pizza.maxToppings})
+         this.setState({maxNumberOfToppings: this.props.pizza.maxToppings});
       } else {
          this.setState({maxNumberOfToppings: 'Unlimited!'})
-      }
-   }
+      };
+   };
 
    componentDidMount() {
-      this.initializeForm()
-   }
+      this.initializeForm();
+   };
 
    render() {
       if (this.state.submitted) {
@@ -255,9 +255,7 @@ class Form extends React.Component {
                   </span>
                </Row>
             </div>
-         )
-      }
-   }
-}
-
-export default Form
+         );
+      };
+   };
+};

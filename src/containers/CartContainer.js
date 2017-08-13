@@ -1,22 +1,22 @@
-import { connect } from 'react-redux'
-import { removePizza } from '../actions'
-import Cart from '../components/Cart'
+import { connect } from 'react-redux';
+import { removePizza } from '../actions';
+import Cart from '../components/Cart';
 
 const getPizzas = pizza => {
-   return pizza
-}
+   return pizza;
+};
 
 const mapStateToProps = (state) => ({
    store: getPizzas(state.pizzas)
-})
+});
 
 const mapDispatchToProps = {
    handleRemovePizza: removePizza
-}
+};
 
 const CartContainer = connect(
    mapStateToProps,
    mapDispatchToProps
-)(Cart)
+)(Cart);
 
-export default CartContainer
+export default CartContainer;

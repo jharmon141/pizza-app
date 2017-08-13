@@ -1,14 +1,14 @@
-import React from 'react'
-import { Col, Row } from 'react-bootstrap'
-import PropTypes from 'prop-types'
+import React from 'react';
+import { Col, Row } from 'react-bootstrap';
+import PropTypes from 'prop-types';
 
 export default class SizeMenu extends React.Component {
 
    constructor(props) {
-      super(props)
+      super(props);
 
-      this.initializeMenu = this.initializeMenu.bind(this)
-   }
+      this.initializeMenu = this.initializeMenu.bind(this);
+   };
 
    static propTypes = {
       handleSelectSize: PropTypes.func,
@@ -29,18 +29,18 @@ export default class SizeMenu extends React.Component {
             })
          }))
       }))
-   }
+   };
 
    initializeMenu(){
       let pizza = this.props.pizzaSizes.find(pizza => {
          return pizza.name === this.props.selectedSize
-      })
-      this.props.initialSize(pizza)
-   }
+      });
+      this.props.initialSize(pizza);
+   };
 
    componentDidMount() {
-      this.initializeMenu()
-   }
+      this.initializeMenu();
+   };
 
    render() {
       return (
@@ -69,6 +69,6 @@ export default class SizeMenu extends React.Component {
                </Col>
             </Row>
          </div>
-      )
-   }
-}
+      );
+   };
+};

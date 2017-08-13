@@ -1,22 +1,23 @@
-import React from 'react'
-import { Col, Row } from 'react-bootstrap'
-import PropTypes from 'prop-types'
+import React from 'react';
+import { Col, Row } from 'react-bootstrap';
+import PropTypes from 'prop-types';
 
-let quantityNums = []
+let quantityNums = [];
 
 for (let i = 1; i < 11; i++) {
-   quantityNums.push(i)
-}
+   quantityNums.push(i);
+};
 
 export default class CartItem extends React.Component {
+
    constructor(props) {
-      super(props)
+      super(props);
 
       this.state = {
          quantity: 0
-      }
+      };
 
-      this.updatePizza = this.updatePizza.bind(this)
+      this.updatePizza = this.updatePizza.bind(this);
    }
 
    static propTypes = {
@@ -32,22 +33,22 @@ export default class CartItem extends React.Component {
             price: PropTypes.number.isRequired
          }).isRequired).isRequired
       }).isRequired   
-   }
+   };
 
    updatePizza(event) {
-      let pizza = this.props.pizza
-      pizza.quantity = Number(event.target.value)
-      this.props.handleUpdatePizza(pizza)
+      let pizza = this.props.pizza;
+      pizza.quantity = Number(event.target.value);
+      this.props.handleUpdatePizza(pizza);
       this.setState({
          quantity: event.target.value
-      })
-   }
+      });
+   };
 
    componentWillMount() {
       this.setState({
          quantity: this.props.pizza.quantity
-      })
-   }
+      });
+   };
 
    render() {
       return(
@@ -90,6 +91,6 @@ export default class CartItem extends React.Component {
                </Col>
             </Row>
          </div>
-      )
-   }
-}
+      );
+   };
+};

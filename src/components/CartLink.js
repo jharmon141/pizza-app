@@ -1,17 +1,17 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import { Col, Row } from 'react-bootstrap'
-import PropTypes from 'prop-types'
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { Col, Row } from 'react-bootstrap';
+import PropTypes from 'prop-types';
 
-class CartLink extends React.Component {
+export default class CartLink extends React.Component {
 
    constructor(props) {
-      super(props)
+      super(props);
 
       this.state = {
          quantity: 0 
-      }
-   }
+      };
+   };
 
    static propTypes = {
       store: PropTypes.shape({
@@ -27,17 +27,17 @@ class CartLink extends React.Component {
             }).isRequired).isRequired
          }).isRequired).isRequired
       })
-   }
+   };
 
    componentWillReceiveProps(nextProps){
       if (nextProps.store.pizzas.length > 0) {
-         let sum = 0
-         nextProps.store.pizzas.map((pizza) => sum += pizza.quantity)
+         let sum = 0;
+         nextProps.store.pizzas.map((pizza) => sum += pizza.quantity);
          this.setState({
             quantity: sum
-         })
-      }
-   }
+         });
+      };
+   };
 
    render() {
       return (
@@ -48,8 +48,6 @@ class CartLink extends React.Component {
                </div>
             </Col>
          </Row>
-      )
-   }
-}
-
-export default CartLink
+      );
+   };
+};

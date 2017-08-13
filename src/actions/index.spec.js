@@ -1,4 +1,4 @@
-import * as actions from './index'
+import * as actions from './index';
 
 describe('pizza actions', () => {
    it('addPizza should create ADD_PIZZA action', () => {
@@ -45,8 +45,8 @@ describe('pizza actions', () => {
             ],
             total: 11.57
          }
-      })
-   })
+      });
+   });
 
    it('removePizza should create REMOVE_PIZZA action', () => {
       expect(actions.removePizza({
@@ -94,8 +94,8 @@ describe('pizza actions', () => {
             ],
             total: 11.57
          }
-      })
-   })
+      });
+   });
 
    it('updatePizza should create UPDATE_PIZZA action', () => {
       expect(actions.updatePizza({
@@ -145,6 +145,6 @@ describe('pizza actions', () => {
             ],
             total: 11.57
          }
-      })
-   })
-})
+      });
+   });
+});

@@ -1,20 +1,21 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import { Col, Row } from 'react-bootstrap'
-import CartItemContainer from '../containers/CartItemContainer'
-import PropTypes from 'prop-types'
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { Col, Row } from 'react-bootstrap';
+import CartItemContainer from '../containers/CartItemContainer';
+import PropTypes from 'prop-types';
 
 export default class Cart extends React.Component {
+
    constructor(props) {
-      super(props)
+      super(props);
 
       this.state = {
          total: 0
-      }
+      };
 
-      this.calculateTotal = this.calculateTotal.bind(this)
-      this.removePizza = this.removePizza.bind(this)
-   }
+      this.calculateTotal = this.calculateTotal.bind(this);
+      this.removePizza = this.removePizza.bind(this);
+   };
 
    static propTypes = {
       handleRemovePizza: PropTypes.func.isRequired,
@@ -31,28 +32,28 @@ export default class Cart extends React.Component {
             }).isRequired).isRequired
          }).isRequired).isRequired
       }).isRequired
-   }
+   };
 
    async removePizza(pizza) {
-      await this.props.handleRemovePizza(pizza)
-      this.calculateTotal()
-   }
+      await this.props.handleRemovePizza(pizza);
+      this.calculateTotal();
+   };
 
    calculateTotal(){
-      let sum = 0 
+      let sum = 0; 
       this.props.store.pizzas.forEach(pizza => {
-         sum += pizza.quantity * pizza.basePrice
-         this.setState({total: sum})
-      })
-   }
+         sum += pizza.quantity * pizza.basePrice;
+         this.setState({total: sum});
+      });
+   };
 
    componentDidMount() {
-      this.calculateTotal()
-   }
+      this.calculateTotal();
+   };
 
    componentWillReceiveProps() {
-      this.calculateTotal()
-   }
+      this.calculateTotal();
+   };
 
    render() {
       if (this.props.store.pizzas.length === 0) {
@@ -71,7 +72,7 @@ export default class Cart extends React.Component {
                </Row>
             </div>
          )
-      }
+      };
 
       return(
          <div>
@@ -121,6 +122,6 @@ export default class Cart extends React.Component {
                </Col>
             </Row>
          </div>
-      )
-   }
-}
+      );
+   };
+};

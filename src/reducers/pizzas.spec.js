@@ -4,8 +4,8 @@ describe('pizzas reducer', () => {
    it('should handle initial state', () => {
       expect(
          pizzas(undefined, {})
-      ).toEqual([])
-   })
+      ).toEqual([]);
+   });
 
    it('should handle ADD_PIZZA', () => {
       expect(
@@ -59,8 +59,8 @@ describe('pizzas reducer', () => {
                }
             ]
          }
-      ])
-   })
+      ]);
+   });
 
    it('should handle REMOVE_PIZZA', () => {
       expect(
@@ -218,8 +218,8 @@ describe('pizzas reducer', () => {
             ],
             total: 12.9 
          }
-      ])
-   })
+      ]);
+   });
 
    it('should handle UPDATE_PIZZA', () => {
       expect(
@@ -410,6 +410,6 @@ describe('pizzas reducer', () => {
             ],
             total: 15.670000000000002 
          }
-      ])
-   })
-})
+      ]);
+   });
+});
