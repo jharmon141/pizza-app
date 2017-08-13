@@ -96,4 +96,55 @@ describe('pizza actions', () => {
          }
       })
    })
+
+   it('updatePizza should create UPDATE_PIZZA action', () => {
+      expect(actions.updatePizza({
+         id: 1,
+         size: 'small',
+         quantity: 1,
+         toppings: [
+            {
+               __typename: 'topping',
+               name: 'cheese',
+               price: 0.1
+            },
+            {
+               __typename: 'topping',
+               name: 'sausage',
+               price: 1.29
+            },
+            {
+               __typename: 'topping',
+               name: 'onion',
+               price: 0.29
+            }
+         ],
+         total: 11.57
+      })).toEqual({
+         type: 'UPDATE_PIZZA',
+         pizza: {
+            id: 1,
+            size: 'small',
+            quantity: 1,
+            toppings: [
+               {
+                  __typename: 'topping',
+                  name: 'cheese',
+                  price: 0.1
+               },
+               {
+                  __typename: 'topping',
+                  name: 'sausage',
+                  price: 1.29
+               },
+               {
+                  __typename: 'topping',
+                  name: 'onion',
+                  price: 0.29
+               }
+            ],
+            total: 11.57
+         }
+      })
+   })
 })

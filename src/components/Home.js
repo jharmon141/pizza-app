@@ -29,7 +29,8 @@ class Home extends React.Component {
          pizzas: PropTypes.arrayOf(PropTypes.shape({
             id: PropTypes.number.isRequired,
             size: PropTypes.string.isRequired,
-            total: PropTypes.number.isRequired,
+            basePrice: PropTypes.number.isRequired,
+            quantity: PropTypes.number.isRequired,
             toppings: PropTypes.arrayOf(PropTypes.shape({
                __typename: PropTypes.string.isRequired,
                name: PropTypes.string.isRequired,
@@ -95,7 +96,8 @@ class Home extends React.Component {
       if (this.state.sizeChosen) {
          return (
             <div>
-               <CartLink quantity={this.props.store.pizzas.length} />
+               <CartLink 
+                  store={this.props.store} />
                <Form 
                   resetForm={this.resetForm} 
                   handleAddPizza={this.props.handleAddPizza} 
@@ -107,7 +109,7 @@ class Home extends React.Component {
       return (
          <div>
             <CartLink 
-               quantity={this.props.store.pizzas.length} />
+               store={this.props.store} />
             <SizeMenu 
                handleSelectSize={this.handleSelectSize} 
                handleSubmitSize={this.handleSubmitSize}

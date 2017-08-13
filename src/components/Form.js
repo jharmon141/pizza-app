@@ -3,6 +3,12 @@ import { Link } from 'react-router-dom'
 import { Col, Row } from 'react-bootstrap'
 import PropTypes from 'prop-types'
 
+let quantityNums = []
+
+for (let i = 1; i < 11; i++) {
+   quantityNums.push(i)
+}
+
 class Form extends React.Component {
 
    constructor(props) {
@@ -12,8 +18,10 @@ class Form extends React.Component {
          submitted: false,
          pickedToppings: [],
          toppingsMax: false ,
+         quantity: 1,
          maxNumberOfToppings: 0,
-         total: 0
+         total: 0,
+         grandTotal: 0
       }
 
       this.addTopping = this.addTopping.bind(this)
@@ -21,6 +29,7 @@ class Form extends React.Component {
       this.handleToppingChange = this.handleToppingChange.bind(this)
       this.updateTotal = this.updateTotal.bind(this)
       this.handleAddToCart = this.handleAddToCart.bind(this)
+      this.selectQuantity = this.selectQuantity.bind(this)
       this.checkMaxToppings = this.checkMaxToppings.bind(this)
       this.initializeForm = this.initializeForm.bind(this)
    }
@@ -48,7 +57,8 @@ class Form extends React.Component {
       let pizza = {}
       pizza.size = this.props.pizza.name
       pizza.toppings = this.state.pickedToppings
-      pizza.total = this.state.total
+      pizza.basePrice = this.state.total
+      pizza.quantity = this.state.quantity
 
       this.props.handleAddPizza(pizza)
       this.setState({submitted: true})
@@ -62,15 +72,28 @@ class Form extends React.Component {
       if (change === 'add') {
          let toppingPrice = Number(amount)
          let beginTotal = Number(this.state.total)
-         let newTotal = beginTotal + toppingPrice
-         this.setState({total: newTotal})
+         let newTotal = (beginTotal + toppingPrice) 
+         this.setState({
+            total: newTotal,
+            grandTotal: newTotal * this.state.quantity
+         })
       }
       else if (change === 'subtract') {
          let toppingPrice = Number(amount)
          let beginTotal = Number(this.state.total)
-         let newTotal = beginTotal - toppingPrice
-         this.setState({total: newTotal})
+         let newTotal = (beginTotal - toppingPrice) 
+         this.setState({
+            total: newTotal,
+            grandTotal: newTotal * this.state.quantity
+         })
       }
+   }
+
+   selectQuantity(event) {
+      this.setState({
+         quantity: Number(event.target.value),
+         grandTotal: this.state.total * event.target.value
+      })
    }
 
    checkMaxToppings(toppings, max) {
@@ -108,7 +131,10 @@ class Form extends React.Component {
          }
          this.addTopping(defaultToppings)
       })
-      this.setState({total: sum})
+      this.setState({
+         total: sum,
+         grandTotal: sum
+      })
       if (this.props.pizza.maxToppings !== null) {
          this.setState({maxNumberOfToppings: this.props.pizza.maxToppings})
       } else {
@@ -194,7 +220,25 @@ class Form extends React.Component {
                   </Col>
                </Row>
                <Row>
-                  <h4>Total: ${this.state.total.toFixed(2)}</h4>
+                  <label className="quantityLabel">
+                     Quantity: 
+                     <select 
+                        className="quantitySelect"
+                        onChange={this.selectQuantity} 
+                        value={this.state.quantity}>
+
+                        {quantityNums.map((num) => {
+                           return <option
+                              key={num}
+                              value={num}>
+                              {num}
+                           </option>
+                        })}
+                     </select>
+                  </label>
+               </Row>
+               <Row>
+                  <h4>Total: ${this.state.grandTotal.toFixed(2)}</h4>
                </Row>
                <Row>
                   <span

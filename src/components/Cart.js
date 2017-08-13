@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { Col, Row } from 'react-bootstrap'
+import CartItemContainer from '../containers/CartItemContainer'
 import PropTypes from 'prop-types'
 
 export default class Cart extends React.Component {
@@ -21,6 +22,8 @@ export default class Cart extends React.Component {
          pizzas: PropTypes.arrayOf(PropTypes.shape({
             id: PropTypes.number.isRequired,
             size: PropTypes.string.isRequired,
+            quantity: PropTypes.number.isRequired,
+            basePrice: PropTypes.number.isRequired,
             toppings: PropTypes.arrayOf(PropTypes.shape({
                __typename: PropTypes.string.isRequired,
                name: PropTypes.string.isRequired,
@@ -30,20 +33,24 @@ export default class Cart extends React.Component {
       }).isRequired
    }
 
-   removePizza(pizza) {
-      this.props.handleRemovePizza(pizza)
-      setTimeout(this.calculateTotal, 0)
+   async removePizza(pizza) {
+      await this.props.handleRemovePizza(pizza)
+      this.calculateTotal()
    }
 
    calculateTotal(){
       let sum = 0 
       this.props.store.pizzas.forEach(pizza => {
-         sum += pizza.total 
+         sum += pizza.quantity * pizza.basePrice
          this.setState({total: sum})
       })
    }
 
    componentDidMount() {
+      this.calculateTotal()
+   }
+
+   componentWillReceiveProps() {
       this.calculateTotal()
    }
 
@@ -88,9 +95,12 @@ export default class Cart extends React.Component {
                   <h4 className="title">Toppings</h4>
                </Col>
                <Col xs={2}> 
+                  <h4 className="title">Quantity</h4>
+               </Col>
+               <Col xs={1}> 
                   <h4 className="title">Price</h4>
                </Col>
-               <Col xs={2}> 
+               <Col xs={1}> 
                   <h4 className="title">Remove</h4>
                </Col>
             </Row>
@@ -98,35 +108,16 @@ export default class Cart extends React.Component {
             <Row>
                {this.props.store.pizzas.map((pizza, index) => {
                   return(
-                     <Row key={index}>
-                        <Col xs={2} xsOffset={1}>
-                           <h4 >{pizza.size}</h4>
-                        </Col>
-                        <Col  className="cartItem" xs={3}>
-                           <span>
-                              {pizza.toppings.map((topping, i) => {
-                                 if (pizza.toppings[i+1]) {
-                                    return <span key={topping.name}>{topping.name}, </span>
-                                 }
-                                 else {
-                                    return <span key={topping.name}>{topping.name}</span>
-                                 }
-                              })}
-                           </span>
-                        </Col>
-                        <Col xs={2}>
-                           <h4>${pizza.total.toFixed(2)}</h4>
-                        </Col>
-                        <Col xs={2}>
-                           <h4 className="delete" onClick={() => this.removePizza(pizza)}>X</h4>
-                        </Col>
-                     </Row>
+                     <CartItemContainer
+                        key={pizza.id}
+                        removePizza={this.removePizza}
+                        pizza={pizza} />
                   )
                })}
             </Row>
             <Row>
                <Col xs={4} xsOffset={1}>
-                  <h4>Grand Total: ${this.state.total.toFixed(2)}</h4>
+                  <h4>Order Total: ${this.state.total.toFixed(2)}</h4>
                </Col>
             </Row>
          </div>

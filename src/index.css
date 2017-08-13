@@ -41,7 +41,7 @@ h2 {
 }
 
 .row {
-   margin-bottom: 25px;
+   margin-bottom: 15px;
 }
 
 .toppings {
@@ -85,4 +85,13 @@ a.cart:hover {
 
 .delete:hover{
    color: red;
+}
+
+.quantitySelect {
+   width: 50px;
+   margin-left: 10px;
+}
+
+.quantityLabel {
+   font-size: 16px;
 }
