@@ -3,15 +3,18 @@ import SizeMenu from '../components/SizeMenu';
 import renderer from 'react-test-renderer';
 
 describe('SizeMenu Component', () => {
-   it('renders without crashing', () => {
-      let pizzaSizes = [{name: 'small'}, {name: 'medium'}, {name: 'large'}];
 
+   let pizzaSizes = [{name: 'small'}, {name: 'medium'}, {name: 'large'}];
+
+   it('renders without crashing', () => {
       const tree = renderer.create(
          <SizeMenu 
             pizzaSizes={pizzaSizes}
-            initialSize={() => {}}
-         />
+            initialSize={() => {}}/>
       ).toJSON();
       expect(tree).toMatchSnapshot();
+   });
+
+   it('handles size selection correctly', () => {
    });
 });

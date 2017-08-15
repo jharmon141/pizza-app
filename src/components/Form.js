@@ -255,7 +255,7 @@ export default class Form extends React.Component {
                   </span>
                </Row>
             </div>
-         );
-      };
+         )
+      }
    };
 };
